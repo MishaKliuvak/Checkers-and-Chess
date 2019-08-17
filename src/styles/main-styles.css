@@ -1,0 +1,67 @@
+#pane {
+    -fx-background-color: #fcfcfc;
+}
+
+
+#CK, #CS {
+    -fx-background-color: white;
+    -fx-pref-height: 150;
+    -fx-pref-width: 400;
+    -fx-background-radius: 1em;
+}
+
+#CK:hover, #CS:hover {
+    -fx-effect: dropshadow(two-pass-box, #e3e3e3, 40, 0, 0, 0);
+}
+
+#CK {
+    -fx-translate-x: 60px;
+    -fx-translate-y: 90px;
+}
+
+#CS {
+    -fx-translate-x: 60px;
+    -fx-translate-y: 260px;
+}
+
+#titleM, #csL, #ckL{
+    -fx-translate-x: 10px;
+    -fx-translate-y: 10px;
+    -fx-text-fill: #01002d;
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: bold;
+    -fx-font-size: 25;
+}
+
+#fl, #sl{
+    -fx-text-fill: #6b6b6b;
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: normal;
+    -fx-font-size: 13;
+}
+
+#csB, #ckB {
+    -fx-background-color: #d6d6d6;
+
+    -fx-text-fill: white;
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: normal;
+    -fx-font-size: 13;
+    -fx-pref-width: 130;
+    -fx-background-radius: 1em;
+}
+
+#csB {
+    -fx-translate-x: 240;
+    -fx-translate-y: 110;
+}
+
+#ckB {
+    -fx-translate-x: 30;
+    -fx-translate-y: 110;
+}
+
+#csB:hover, #ckB:hover {
+    -fx-background-color: #2dc1e5;
+}
+
