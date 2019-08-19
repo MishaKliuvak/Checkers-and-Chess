@@ -1,18 +1,12 @@
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private static Main main;
-    public static Main getInstance() {
-        if (main == null) {
-            Main.main = new Main();
-        }
-        return Main.main;
-    }
-    public Scene scene;
     /**
      * запуск додатку
      * @param pStage головне вікно
@@ -23,6 +17,12 @@ public class Main extends Application {
         pStage.setScene(MenuView.getInstance().changePane());
         pStage.setResizable(false);
         pStage.setMaximized(false);
+
+
+
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        pStage.setX((primScreenBounds.getWidth() - 516) / 2);
+        pStage.setY((primScreenBounds.getHeight() - 539) / 2);
 
         pStage.getScene().getStylesheets().add(this.getClass().getResource("styles/main-styles.css").toExternalForm());
 

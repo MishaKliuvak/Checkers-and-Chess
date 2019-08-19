@@ -54,7 +54,7 @@ public class PlayersView {
 
         ObservableList<CustomThing> data = FXCollections.observableArrayList();
         data.addAll(new CustomThing(names[0], countries[0], 1), new CustomThing(names[1], countries[1], 2),
-                new CustomThing(names[2], countries[2], 3), new CustomThing(names[3], countries[3], 4), new CustomThing(names[4],countries[4], 4));
+                new CustomThing(names[2], countries[2], 3), new CustomThing(names[3], countries[3], 4), new CustomThing(names[4],countries[4], 5));
 
         final ListView<CustomThing> listView = new ListView<CustomThing>(data);
         listView.setCellFactory(new Callback<ListView<CustomThing>, ListCell<CustomThing>>() {

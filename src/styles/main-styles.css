@@ -102,20 +102,40 @@
     -fx-font-size: 13;
 }
 
-#gname{
-    -fx-translate-x: 20;
-    -fx-translate-y: 10;
+#gname, #nameLbl{
     -fx-fill: #01002d;
     -fx-font-family: "Century Gothic";
     -fx-font-weight: bold;
     -fx-font-size: 15;
 }
 
-#gdescr{
-    -fx-translate-x: 20;
-    -fx-translate-y: 10;
+#gdescr, #descrLbl{
     -fx-fill: #6b6b6b;
     -fx-font-family: "Century Gothic";
     -fx-font-weight: normal;
     -fx-font-size: 10;
+}
+
+#deleteBtn, #addBtn, #editBtn {
+    -fx-background-color: #d680d1;
+    -fx-text-fill: white;
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: normal;
+    -fx-font-size: 13;
+    -fx-pref-width: 30;
+    -fx-background-radius: 5em;
+}
+
+#addBtn {
+    -fx-background-color: #6a9cd6;
+}
+
+#editBtn {
+    -fx-background-color: #d67177;
+}
+
+#deleteBtn:hover, #addBtn:hover, #editBtn:hover {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(two-pass-box, #e3e3e3, 40, 0, 0, 0);
 }
