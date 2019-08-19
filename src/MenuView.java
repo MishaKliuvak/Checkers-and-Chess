@@ -20,6 +20,14 @@ public class MenuView {
     private MenuView() {
     }
 
+    private String[] chess_players_names = {"Хоу Їфан", "Магнус Карлсен", "Рустам Касімджанов", "Веслі Со", "Вісванатан Ананд"};
+
+    private String[] chess_players_countries = {"Китай", "Норвегія", "Узбекістан", "Філіппіни", "Індія"};
+
+    private String[] checkers_players_names = {"Зоя Голубєва", "Дарина Ткаченко", "Гунтіс Валнеріс", "Марсель Деслаурієс", "Вікторія Мотричко"};
+
+    private String[] checkers_players_countries = {"Білорусь", "Україна", "Латвія", "Франція", "Україна"};
+
     public static MenuView getInstance() {
         if (menu == null) {
             MenuView.menu = new MenuView();
@@ -74,6 +82,9 @@ public class MenuView {
 
         checkBtn = new Button("Відкрити");
         checkBtn.setId("ckB");
+        checkBtn.setOnMouseClicked(event -> {
+            this.scene.setRoot(PlayersView.getInstance().changePane(this.scene, checkers_players_names, checkers_players_countries, "CheckersPlayers"));
+        });
 
         checkersPane.getChildren().addAll(checkIV, checkersLabel, secondLine, checkBtn);
         return checkersPane;
@@ -97,6 +108,9 @@ public class MenuView {
 
         chessBtn = new Button("Відкрити");
         chessBtn.setId("csB");
+        chessBtn.setOnMouseClicked(event -> {
+            this.scene.setRoot(PlayersView.getInstance().changePane(this.scene, chess_players_names, chess_players_countries, "ChessPlayers"));
+        });
 
         chessesPane.getChildren().addAll(chessIV, chessLabel, firstLine, chessBtn);
         return chessesPane;
