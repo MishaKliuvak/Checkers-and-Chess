@@ -101,3 +101,21 @@
     -fx-font-weight: normal;
     -fx-font-size: 13;
 }
+
+#gname{
+    -fx-translate-x: 20;
+    -fx-translate-y: 10;
+    -fx-fill: #01002d;
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+#gdescr{
+    -fx-translate-x: 20;
+    -fx-translate-y: 10;
+    -fx-fill: #6b6b6b;
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: normal;
+    -fx-font-size: 10;
+}

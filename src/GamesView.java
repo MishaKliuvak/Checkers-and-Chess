@@ -1,60 +1,59 @@
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class PlayersView {
+public class GamesView {
     public Scene scene;
     private Pane pane;
 
-    private static PlayersView playersView = null;
+    private static GamesView gamesView = null;
 
     private Button selectBtn, backBtn;
 
-    private int select = 0;
-
-    private List<Image> listOfImages = new ArrayList<>();
-
-    private PlayersView() {
+    private GamesView() {
     }
 
-    public static PlayersView getInstance() {
-        if (playersView == null) {
-            PlayersView.playersView = new PlayersView();
+    public static GamesView getInstance() {
+        if (gamesView == null) {
+            GamesView.gamesView = new GamesView();
         }
-        return PlayersView.playersView;
+        return GamesView.gamesView;
     }
 
-    public Pane changePane(Scene scene, String[] names, String[] countries, String part){
-        listOfImages.clear();
+    private List<String> names = new ArrayList<String>();
+    private List<String> descriptions = new ArrayList<String>();
+    private List<String> ids = new ArrayList<String>();
 
-        for(int i=0; i<5; i++){
-            listOfImages.add(new Image(this.getClass().getResource("resources/" + part + "/" + (i+1) + ".png").toExternalForm()));
-        }
-        select = 0;
+    private String table = "";
 
+    public Pane changePane(Scene scene, int id, String[] backname, String[] backcon, String backpart){
         pane = new Pane();
         pane.setPrefSize(500, 500);
         pane.setId("pane");
 
+        table = (backpart.equals("ChessPlayers")) ? "chess_games" : "checkers_game";
+
+        names = DataBase.getInstance().getGames(String.valueOf(id), table, "name");
+        descriptions = DataBase.getInstance().getGames(String.valueOf(id), table, "description");
+        ids = DataBase.getInstance().getGames(String.valueOf(id), table, "id");
+
         ObservableList<CustomThing> data = FXCollections.observableArrayList();
-        data.addAll(new CustomThing(names[0], countries[0], 1), new CustomThing(names[1], countries[1], 2),
-                new CustomThing(names[2], countries[2], 3), new CustomThing(names[3], countries[3], 4), new CustomThing(names[4],countries[4], 4));
+        for(int i = 0; i < names.size(); i++){
+            data.add(new CustomThing(names.get(i), descriptions.get(i)));
+        }
 
         final ListView<CustomThing> listView = new ListView<CustomThing>(data);
         listView.setCellFactory(new Callback<ListView<CustomThing>, ListCell<CustomThing>>() {
@@ -67,14 +66,15 @@ public class PlayersView {
         listView.setPrefSize(480, 400);
 
 
-        selectBtn = new Button("Перейти");
+        selectBtn = new Button("Переглянути");
         selectBtn.setId("selectBtn");
         selectBtn.setOnMouseClicked(event -> {
             if(listView.getSelectionModel().getSelectedItem() == null){
-                AlertShowing.showAlert(pane,"Помилка", "Виберіть гравця");
+                AlertShowing.showAlert(pane,"Помилка", "Виберіть партію");
             }
             else {
-                scene.setRoot(GamesView.getInstance().changePane(scene, listView.getSelectionModel().getSelectedItem().id, names, countries, part));
+               // System.out.println(DataBase.getInstance().getGames("1", "chess_games"));
+                //System.out.println(listView.getSelectionModel().getSelectedItem().name);
             }
         });
         selectBtn.relocate(350, 460);
@@ -82,7 +82,7 @@ public class PlayersView {
         backBtn = new Button("Назад");
         backBtn.setId("selectBtn");
         backBtn.setOnMouseClicked(event -> {
-            scene.setRoot(MenuView.getInstance().createPane());
+            scene.setRoot(PlayersView.getInstance().changePane(scene, backname, backcon, backpart));
         });
         backBtn.relocate(30, 460);
 
@@ -92,22 +92,18 @@ public class PlayersView {
 
     private static class CustomThing {
         private String name;
-        private String nation;
-        private int id;
+        private String description;
+
         public String getName() {
             return name;
         }
         public String getPrice() {
-            return nation;
+            return description;
         }
-        public Integer getId() {
-            return id;
-        }
-        public CustomThing(String name, String nation, int id) {
+        public CustomThing(String name, String description) {
             super();
             this.name = name;
-            this.nation = nation;
-            this.id = id;
+            this.description = description;
         }
     }
 
@@ -119,17 +115,15 @@ public class PlayersView {
         public CustomListCell() {
             super();
             name = new Text();
-            name.setId("name");
+            name.setId("gname");
 
             price = new Text();
-            price.setId("price");
+            price.setId("gdescr");
 
             VBox vBox = new VBox(name, price);
             name.relocate(10,10);
             price.relocate(10,50);
-            content = new HBox(new ImageView(listOfImages.get(select)), vBox);
-            select = (select == 4) ? 0 : ++select;
-            content.setSpacing(10);
+            content = new HBox(vBox);
         }
 
         @Override
@@ -139,10 +133,10 @@ public class PlayersView {
                 name.setText(item.getName());
                 price.setText(item.getPrice());
                 setGraphic(content);
+                setPrefHeight(50);
             } else {
                 setGraphic(null);
             }
         }
     }
-
 }
